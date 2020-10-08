@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4em;
+      }
+      .title {
+        font-weight: bolder;
+        font-size: large;
+      };
+      .project {
+        border-color: grey;
+        margin: 0.4em;
+        padding: 0.2em;
+        border: 0.1em;
+        border-style: solid;
+        border-radius: 0.2em;
+      }
+      .project-name {
+        font-weight: bolder;
+        font-size: medium;
+      };
+      .project-project-metrics-summary {
+        font-weight: lighter;
+        font-size: x-small;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <span class="title">{{title}}</span>
+    </div>
+    <div class="projects">
+      {{#projects}}
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">{{ projectName }}</span>
+          <span class="project-metrics-summary">[lines: {{ metrics.cumulated.code }}, files:  {{ metrics.cumulated.nFiles }}]</span>
+        </div>
+        <div class="project-chart">
+          <div id="chart-{{ projectId }}"></div>
+        </div>
+      </div>
+      {{/projects}}
+    <div>
+  </body>
+  <script>
+    {{#projects}}
+    var options{{projectId}} = {
+      title: {
+        text: "{{projectName}}",
+        align: "center"
+      },
+      series: [
+        {{#metrics.perRepos}}
+          { name: "{{repoName}}", data:[{{metrics.cumulated.code}}]},
+        {{/metrics.perRepos}}
+      ],
+        chart: {
+        type: 'bar',
+        height: 220,
+        stacked: true,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+        },
+      },
+      stroke: {
+        width: 1,
+        colors: ['#fff']
+      },
+      fill: {
+        opacity: 1
+      },
+      yaxis: {
+        labels: {
+          show: false
+        }
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left',
+        offsetX: 20
+      }
+      };
+      var chart{{projectId}} = new ApexCharts(document.querySelector("#chart-{{ projectId }}"), options{{projectId}});
+      chart{{projectId}}.render();
+    {{/projects}}
+  </script>
+</html>

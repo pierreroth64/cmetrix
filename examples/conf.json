@@ -1,0 +1,24 @@
+{
+  "projects": [
+    {
+      "name": "project 1",
+      "repositories": [
+        {
+          "name": "lodash",
+          "languages": ["JavaScript"],
+          "excludeDirs": ["node_modules"]
+        },
+        { "name": "shelljs" }
+      ]
+    },
+    {
+      "name": "project 2",
+      "repositories": [{ "name": "lodash" }, { "name": "quart" }]
+    }
+  ],
+  "repositories": [
+    { "name": "lodash", "url": "git@github.com:lodash/lodash.git" },
+    { "name": "shelljs", "url": "https://github.com/shelljs/shelljs.git" },
+    { "name": "quart", "url": "https://gitlab.com/pgjones/quart.git" }
+  ]
+}
