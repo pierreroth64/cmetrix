@@ -19,7 +19,7 @@ program
   .option(
     '-f, --format [FORMAT]',
     'FORMAT is the expected output format',
-    OutputFormat.json
+    OutputFormat.html
   )
   .option(
     '-t, --title [TITLE]',
@@ -57,7 +57,8 @@ program
         conf.projects,
         cloned
       );
-      await generateOutput(projectsMetrics);
+      const output = await generateOutput(projectsMetrics);
+      console.log('generated:', output);
     } catch (e) {
       error = e;
     } finally {

@@ -1,6 +1,6 @@
 # cmetrix
 
-*CLI to build code metrics chart for your projects*
+_CLI to build code metrics chart for your projects_
 
 ## Purpose
 
