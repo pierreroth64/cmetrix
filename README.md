@@ -1,13 +1,23 @@
-# @eove/app-tools
+# cmetrix
 
-[![Build Status](https://github.com/eove/eo-app-tools/workflows/CI/badge.svg)](https://github.com/eove/eo-app-tools/actions?query=workflow%3ACI)
+*CLI to build code metrics chart for your projects*
 
-Collection of development scripts/tools for Eove applications.
+## Purpose
 
-## Features
+Your team is working on several projects. Each project is composed of several repositories.
+You would like to have an overview of the amazing work that has been done.
 
-- `scripts/build-debug-apk`: creates an autonomous debug apk for a react-native project
-- `scripts/sort-translations`: sorts translations's json keys in alphabetical order
-- `scripts/generate-sdd`: generates a SDD document based on project documentation and its dependencies
-- `scripts/install-priv-app`: installs a package as priv app
-- `scrpts/uninstall-priv-app`: uninstalls priv app and potential updates completely
+Run `cmetrix` and you will get beautiful charts (thanks to [cloc](https://github.com/AlDanial/cloc) and [apexcharts](https://apexcharts.com/) used under the hood)
+
+## Installation
+
+- Install [NodeJS](https://nodejs.org/)
+- Install [cloc](https://github.com/AlDanial/cloc)
+- Then run `npm install -g cmetrix` ou run it through npx: `npx cmetrix --help`
+
+## Usage
+
+First, you have to describe your projects in a configuration file.
+Then, just run `cmetrix charts -c <configuration-file>.json`
+
+(`cmetrix charts --help` for more options)
