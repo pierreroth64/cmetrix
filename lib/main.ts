@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import program from 'commander';
 import { bootstrap } from './runtime';
 import { Level as LogLevel } from '@arpinum/log';

@@ -1,6 +1,7 @@
 import path from 'path';
 import { ProjectMetrics } from '../types';
 import { GenerateOutputCreation } from './types';
+const defaultTemplateContent = require('./defaultTemplate.html');
 
 interface WithTemplate {
   templatePath?: string;
@@ -15,7 +16,7 @@ export function makeGenerateHTMLOutput(creation: GenerateHTMLOutputCreation) {
     title,
     fileOps,
     templateEngine,
-    templatePath = path.join(__dirname, 'defaultTemplate.html'),
+    templatePath,
   } = creation;
 
   return async function generateHTMLOutput(
@@ -24,10 +25,10 @@ export function makeGenerateHTMLOutput(creation: GenerateHTMLOutputCreation) {
     const destPath = path.join(outDir, 'index.html');
     logger.debug(`generating html projects metrics in ${destPath}...`);
 
-    const template = await fileOps.readText(templatePath);
+    const templateContent = templatePath ? await fileOps.readText(templatePath) : defaultTemplateContent;
     const output = await templateEngine.run(
       { projects: metrics, title },
-      template
+      templateContent
     );
     await fileOps.writeText(destPath, output);
 
