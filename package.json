@@ -1,6 +1,6 @@
 {
   "name": "@eove/cmetrix",
-  "version": "1.0.0-dev.0",
+  "version": "1.0.0",
   "description": "CLI to build code metrics chart for your projects",
   "main": "build/main.js",
   "bin": {
