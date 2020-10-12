@@ -1,6 +1,6 @@
 {
   "name": "cmetrix",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI to build code metrics charts for your projects",
   "main": "build/main.js",
   "bin": {
