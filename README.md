@@ -4,6 +4,10 @@
 
 _CLI to build code metrics chart for your projects_
 
+<p align="center">
+  <img src="./images/cmetrix-chart.png" />
+</p>
+
 ## Purpose
 
 Your team is working on several projects. Each project is composed of several repositories.
@@ -15,12 +19,14 @@ Run `cmetrix` and you will get beautiful charts (thanks to [cloc](https://github
 
 - Install [NodeJS](https://nodejs.org/)
 - Install [cloc](https://github.com/AlDanial/cloc)
-- Then run `npm install -g cmetrix` ou run it through npx: `npx cmetrix --help`
+- Then run `npm install cmetrix`
 
 ## Usage
 
 First, you have to describe your projects in a configuration file.
 Then, just run `cmetrix charts -c <configuration-file>.json`
+
+You can run the example: `npm start -- charts -c examples/conf.json -o .. --open`
 
 (`cmetrix charts --help` for more options)
 
