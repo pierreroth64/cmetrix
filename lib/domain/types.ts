@@ -71,8 +71,13 @@ export interface ProjectMetrics {
       code: number;
       nFiles: number;
     };
-    perRepos: any[];
+    perRepos: RepositoryMetrics[];
   };
+}
+
+export interface RepositoryMetrics {
+  name: string;
+  metrics: any;
 }
 
 export enum OutputFormat {

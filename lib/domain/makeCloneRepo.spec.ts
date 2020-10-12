@@ -1,14 +1,14 @@
 import { createLoggerMock, createFileOpsMock, createGitMock } from '../tests';
 
-import { makeCloneRepos } from './makeCloneRepos';
+import { makeCloneRepo } from './makeCloneRepo';
 
-describe('Clone repositories', () => {
-  let cloneRepos: any;
+describe('Clone repository', () => {
+  let cloneRepo: any;
   let fileOps: any;
 
   beforeEach(() => {
     fileOps = createFileOpsMock();
-    cloneRepos = makeCloneRepos({
+    cloneRepo = makeCloneRepo({
       logger: createLoggerMock(),
       fileOps,
       git: createGitMock(),
@@ -18,7 +18,7 @@ describe('Clone repositories', () => {
   it('when url is an existing local repo, should _not_ mark repository to be removed', async () => {
     fileOps.doesExist = jest.fn().mockResolvedValue(true);
 
-    const cloned = await cloneRepos([{ name: 'my-repo', url: 'my-repo-dir' }]);
+    const cloned = await cloneRepo([{ name: 'my-repo', url: 'my-repo-dir' }]);
 
     expect(cloned[0].toBeRemoved).toBeFalsy();
   });
@@ -26,7 +26,7 @@ describe('Clone repositories', () => {
   it('when url is not an existing local repo, should mark repository to be removed', async () => {
     fileOps.doesExist = jest.fn().mockResolvedValue(false);
 
-    const cloned = await cloneRepos([{ name: 'my-repo', url: 'my-repo-dir' }]);
+    const cloned = await cloneRepo([{ name: 'my-repo', url: 'my-repo-dir' }]);
 
     expect(cloned[0].toBeRemoved).toBeTruthy();
   });

@@ -4,10 +4,8 @@ import { Level as LogLevel } from '@arpinum/log';
 import {
   makeCheckConfiguration,
   createGit,
-  makeCollectProjectsMetrics,
-  makeCheckoutRepos,
-  makeCloneRepos,
-  makeRemoveTemporaryLocalRepos,
+  makeBuildProjectMetrics,
+  makeAnalyzeRepos,
   makeGenerateOutput,
   RunWithSpinner,
   ToBeRun,
@@ -23,8 +21,9 @@ import {
 } from '../tools';
 
 export function bootstrap(options: any): any {
+  const logLevel = options.quiet ? LogLevel.off : options.logLevel;
   const logger = createLogger({
-    level: options.quiet ? LogLevel.off : options.logLevel,
+    level: logLevel,
   });
   const git = createGit({
     createGitTool: (workDir?: string) => simpleGit(workDir),
@@ -36,22 +35,25 @@ export function bootstrap(options: any): any {
   const spinner = createSpinner({ silent: options.quiet });
   const templateEngine = createTemplateEngine();
 
-  const runWithSpinner = makeRunWithSpinner(spinner);
+  const runWithSpinner =
+    logLevel == LogLevel.off
+      ? makeRunWithSpinner(spinner)
+      : async (x: any) => await x();
   const checkConfiguration = makeCheckConfiguration({
     logger,
   });
-  const cloneRepos = makeCloneRepos({ git, fileOps, logger, runWithSpinner });
-  const checkoutRepos = makeCheckoutRepos({ git, logger, runWithSpinner });
-  const removeTemporaryLocalRepos = makeRemoveTemporaryLocalRepos({
+  const buildProjectMetrics = makeBuildProjectMetrics({
     logger,
+  });
+
+  const analyzeRepos = makeAnalyzeRepos({
+    git,
+    logger,
+    runWithSpinner,
     fileOps,
-    runWithSpinner,
-  });
-  const collectProjectsMetrics = makeCollectProjectsMetrics({
-    logger,
     shell,
-    runWithSpinner,
   });
+
   const generateOutput = makeGenerateOutput({
     fileOps,
     runWithSpinner,
@@ -65,12 +67,10 @@ export function bootstrap(options: any): any {
   return {
     runWithSpinner,
     fileOps,
-    checkoutRepos,
-    cloneRepos,
-    removeTemporaryLocalRepos,
-    collectProjectsMetrics,
+    buildProjectMetrics,
     checkConfiguration,
     generateOutput,
+    analyzeRepos,
   };
 }
 

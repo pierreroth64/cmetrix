@@ -11,7 +11,7 @@ describe('git facade', () => {
     createGitTool = (): any => {
       gitTool = createGitMock();
       return gitTool;
-    }
+    };
   });
 
   it('should encode github token', async () => {
