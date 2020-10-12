@@ -21,3 +21,15 @@ First, you have to describe your projects in a configuration file.
 Then, just run `cmetrix charts -c <configuration-file>.json`
 
 (`cmetrix charts --help` for more options)
+
+### Authentication
+
+You can pass authentication tokens to `cmetrix` when accessing private repositories through `https://` using the following environment variables: `CMETRIX_GITHUB_TOKEN`, `CMETRIX_GITLAB_TOKEN`, `CMETRIX_BITBUCKET_TOKEN`. 
+⚠️ Do not fill your configuration file with tokens: `cmetrix` will do the job for you.
+
+## Development
+
+```
+  npm run build
+  npm start -- charts --help
+```

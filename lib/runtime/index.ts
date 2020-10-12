@@ -25,7 +25,12 @@ export function bootstrap(options: any): any {
   const logger = createLogger({
     level: options.quiet ? LogLevel.off : options.logLevel,
   });
-  const git = createGit({ git: simpleGit() });
+  const git = createGit({
+    git: simpleGit(),
+    githubToken: process.env.CMETRIX_GITHUB_TOKEN,
+    gitlabToken: process.env.CMETRIX_GITLAB_TOKEN,
+    bitbucketToken: process.env.CMETRIX_BITBUCKET_TOKEN,
+  });
   const shell = createShell({ logger });
   const spinner = createSpinner({ silent: options.quiet });
   const templateEngine = createTemplateEngine();
