@@ -2,7 +2,7 @@ import { createGitMock } from '../tests';
 
 import { createGit } from './git';
 
-describe('Git', () => {
+describe('git facade', () => {
   let git: any;
   let gitTool: any;
 

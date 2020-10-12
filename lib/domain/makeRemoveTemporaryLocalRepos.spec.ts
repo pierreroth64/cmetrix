@@ -2,7 +2,7 @@ import { createLoggerMock, createFileOpsMock } from '../tests';
 
 import { makeRemoveTemporaryLocalRepos } from './makeRemoveTemporaryLocalRepos';
 
-describe('Remove temporary repositories', () => {
+describe('remove temporary repositories', () => {
   let removeTemporaryLocalRepos: any;
   let fileOps: any;
 
