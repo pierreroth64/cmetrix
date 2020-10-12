@@ -3,13 +3,17 @@ import { FileOps, Logger, ClonedRepository, RunWithSpinner } from './types';
 export interface RemoveLocalReposCreation {
   logger: Logger;
   fileOps: FileOps;
-  runWithSpinner: RunWithSpinner;
+  runWithSpinner?: RunWithSpinner;
 }
 
 export function makeRemoveTemporaryLocalRepos(
   creation: RemoveLocalReposCreation
 ) {
-  const { fileOps, logger, runWithSpinner } = creation;
+  const {
+    fileOps,
+    logger,
+    runWithSpinner = async (x: any) => await x(),
+  } = creation;
 
   return async (repositories: ClonedRepository[]): Promise<void> => {
     try {
