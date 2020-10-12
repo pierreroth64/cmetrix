@@ -32,7 +32,7 @@ You can run the example: `npm run build && npm start -- charts -c examples/conf.
 
 ### Authentication
 
-You can pass authentication tokens to `cmetrix` when accessing private repositories through `https://` using the following environment variables: `CMETRIX_GITHUB_TOKEN`, `CMETRIX_GITLAB_TOKEN`, `CMETRIX_BITBUCKET_TOKEN`. 
+You can pass authentication tokens to `cmetrix` when accessing private repositories through `https://` using the following environment variables: `CMETRIX_GITHUB_TOKEN`, `CMETRIX_GITLAB_TOKEN`, `CMETRIX_BITBUCKET_TOKEN`.
 ⚠️ Do not fill your configuration file with tokens: `cmetrix` will do the job for you.
 
 ## Development
