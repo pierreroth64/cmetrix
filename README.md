@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/pierreroth64/cmetrix/workflows/CI/badge.svg)](https://github.com/pierreroth64/cmetrix/actions?query=workflow%3ACI)
 
-_CLI to build code metrics chart for your projects_
+_CLI to build code metrics charts for your projects_
 
 <p align="center">
   <img src="./images/cmetrix-chart.png" />
