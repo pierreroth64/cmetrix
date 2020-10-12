@@ -1,5 +1,6 @@
 import program from 'commander';
 import open from 'open';
+import { tmpdir } from 'os';
 
 import { bootstrap } from './runtime';
 import { Level as LogLevel } from '@arpinum/log';
@@ -30,7 +31,7 @@ program
   .requiredOption(
     '-o, --out-dir [OUT_DIR]',
     '[OUT_DIR] where to generate artefacts',
-    process.cwd()
+    tmpdir()
   )
   .option('--open', 'when set, open generated output file', false)
   .option(

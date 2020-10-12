@@ -26,7 +26,7 @@ Run `cmetrix` and you will get beautiful charts (thanks to [cloc](https://github
 First, you have to describe your projects in a configuration file.
 Then, just run `cmetrix charts -c <configuration-file>.json`
 
-You can run the example: `npm start -- charts -c examples/conf.json -o .. --open`
+You can run the example: `npm run build && npm start -- charts -c examples/conf.json --open`
 
 (`cmetrix charts --help` for more options)
 
