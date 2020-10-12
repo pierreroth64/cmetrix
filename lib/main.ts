@@ -53,10 +53,10 @@ program
       const conf = await checkConfiguration(
         await fileOps.readJson(options.configurationFile)
       );
-      const progress = createProgress({
-        title: 'analyzed repositories:',
-        total: conf.repositories.length,
-      });
+      const progress = createProgress(
+        'analyzed repositories:',
+        conf.repositories.length
+      );
       const repoMetrics = await analyzeRepos(
         conf.repositories,
         async (_: RepositoryMetrics) => {

@@ -14,11 +14,15 @@ import {
   FileOps as fileOps,
   createShell,
   createTemplateEngine,
-  createProgress,
+  createProgress as rawCreateProgress,
 } from '../tools';
 
 export function bootstrap(options: any): any {
   const logLevel = options.quiet ? LogLevel.off : options.logLevel;
+  const silent = options.quiet || logLevel !== LogLevel.off;
+  const createProgress = function create(title: string, total: number) {
+    return rawCreateProgress({ title, total, silent });
+  };
   const logger = createLogger({
     level: logLevel,
   });
