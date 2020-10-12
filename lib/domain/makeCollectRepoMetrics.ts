@@ -1,17 +1,10 @@
 import * as _ from 'lodash';
 
-import {
-  Logger,
-  Shell,
-  RunWithSpinner,
-  ClonedRepository,
-  RepositoryMetrics,
-} from './types';
+import { Logger, Shell, ClonedRepository, RepositoryMetrics } from './types';
 
 export interface CollectRepoMetricsCreation {
   logger: Logger;
   shell: Shell;
-  runWithSpinner?: RunWithSpinner;
 }
 
 interface ClocOptions {
@@ -20,19 +13,13 @@ interface ClocOptions {
 }
 
 export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
-  const {
-    shell,
-    logger,
-    runWithSpinner = async (x: any) => await x(),
-  } = creation;
+  const { shell, logger } = creation;
 
   return async (repository: ClonedRepository): Promise<RepositoryMetrics> => {
     try {
       const { dir, languages, excludeDirs, name } = repository;
-      const metrics = await runWithSpinner(
-        async () =>
-          formatClocResult(await runCloc(dir, { languages, excludeDirs })),
-        `collecting repository metrics for ${name}...`
+      const metrics = formatClocResult(
+        await runCloc(dir, { languages, excludeDirs })
       );
       logger.info(`collected repository metrics for ${name}`);
       return {

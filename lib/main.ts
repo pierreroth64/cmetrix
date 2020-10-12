@@ -4,7 +4,7 @@ import { tmpdir } from 'os';
 
 import { bootstrap } from './runtime';
 import { Level as LogLevel } from '@arpinum/log';
-import { OutputFormat, Project } from './domain';
+import { OutputFormat, Project, RepositoryMetrics } from './domain';
 
 program
   .command('charts')
@@ -46,13 +46,23 @@ program
       analyzeRepos,
       buildProjectMetrics,
       generateOutput,
+      createProgress,
     } = bootstrap(options);
 
     try {
       const conf = await checkConfiguration(
         await fileOps.readJson(options.configurationFile)
       );
-      const repoMetrics = await analyzeRepos(conf.repositories);
+      const progress = createProgress({
+        title: 'analyzed repositories:',
+        total: conf.repositories.length,
+      });
+      const repoMetrics = await analyzeRepos(
+        conf.repositories,
+        async (_: RepositoryMetrics) => {
+          progress.update();
+        }
+      );
 
       const projectsMetrics = conf.projects.map((p: Project) =>
         buildProjectMetrics(p, repoMetrics)

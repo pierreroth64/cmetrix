@@ -1,24 +1,16 @@
-import { Git, Logger, RunWithSpinner, ClonedRepository } from './types';
+import { Git, Logger, ClonedRepository } from './types';
 
 export interface CheckoutRepoCreation {
   logger: Logger;
   git: Git;
-  runWithSpinner?: RunWithSpinner;
 }
 
 export function makeCheckoutRepo(creation: CheckoutRepoCreation) {
-  const {
-    git,
-    logger,
-    runWithSpinner = async (x: any) => await x(),
-  } = creation;
+  const { git, logger } = creation;
 
   return async (repository: ClonedRepository): Promise<ClonedRepository> => {
     try {
-      const checkedOut = await runWithSpinner(
-        async () => await checkoutSingleRepo(repository),
-        `checking out repository ${repository.name}...`
-      );
+      const checkedOut = await checkoutSingleRepo(repository);
       logger.info(
         `checked out repository ${checkedOut.name} (${checkedOut.tag})`
       );

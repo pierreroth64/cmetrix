@@ -1,26 +1,18 @@
-import { FileOps, Logger, ClonedRepository, RunWithSpinner } from './types';
+import { FileOps, Logger, ClonedRepository } from './types';
 
 export interface RemoveLocalRepoCreation {
   logger: Logger;
   fileOps: FileOps;
-  runWithSpinner?: RunWithSpinner;
 }
 
 export function makeRemoveTemporaryLocalRepo(
   creation: RemoveLocalRepoCreation
 ) {
-  const {
-    fileOps,
-    logger,
-    runWithSpinner = async (x: any) => await x(),
-  } = creation;
+  const { fileOps, logger } = creation;
 
   return async (repository: ClonedRepository): Promise<ClonedRepository> => {
     try {
-      return await runWithSpinner(
-        async () => await removeRepo(repository),
-        `removing temporary local repository ${repository.name}...`
-      );
+      return await removeRepo(repository);
     } catch (e) {
       logger.error(
         `error when removing temporary local repository ${repository.name}: ${e.message}`

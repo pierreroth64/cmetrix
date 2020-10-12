@@ -4,7 +4,6 @@ import {
   Git,
   FileOps,
   Logger,
-  RunWithSpinner,
   Repository,
   RepositoryMetrics,
   Shell,
@@ -19,17 +18,14 @@ export interface AnalyzeReposCreation {
   git: Git;
   shell: Shell;
   fileOps: FileOps;
-  runWithSpinner?: RunWithSpinner;
 }
 
+export type OnAnalyzedRepository = (
+  repoMetrics: RepositoryMetrics
+) => Promise<void>;
+
 export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
-  const {
-    fileOps,
-    git,
-    logger,
-    shell,
-    runWithSpinner = async (x: any) => await x(),
-  } = creation;
+  const { fileOps, git, logger, shell } = creation;
 
   const cloneRepo = makeCloneRepo({ git, logger, fileOps });
   const checkoutRepo = makeCheckoutRepo({ git, logger });
@@ -42,21 +38,24 @@ export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
     fileOps,
   });
 
-  return async (repositories: Repository[]): Promise<RepositoryMetrics[]> => {
+  return async (
+    repositories: Repository[],
+    onAnalyzed?: OnAnalyzedRepository
+  ): Promise<RepositoryMetrics[]> => {
     try {
-      const repoMetrics = await runWithSpinner(
-        async () =>
-          await Promise.all(
-            repositories.map((r) =>
-              compose([
-                cloneRepo,
-                checkoutRepo,
-                collectRepoMetrics,
-                removeTemporaryLocalRepo,
-              ])(r)
-            )
-          ),
-        'analyzing repositories...'
+      const repoMetrics = await Promise.all(
+        repositories.map((r) =>
+          compose([
+            cloneRepo,
+            checkoutRepo,
+            collectRepoMetrics,
+            removeTemporaryLocalRepo,
+          ])(r).then((metrics: RepositoryMetrics) => {
+            return onAnalyzed
+              ? onAnalyzed(metrics).then(() => metrics)
+              : metrics;
+          })
+        )
       );
       logger.info('analyzed repositories');
       return repoMetrics;

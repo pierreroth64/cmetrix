@@ -33,11 +33,6 @@ export interface Shell {
   cd: (path: string) => Promise<void>;
 }
 
-export interface Spinner {
-  start: (msg: string) => Promise<void>;
-  stop: () => Promise<void>;
-}
-
 export interface Project {
   name: string;
   repositories: Repository[];
@@ -57,9 +52,6 @@ export interface Repository {
 }
 
 export type ClonedRepository = Repository & Cloned;
-
-export type ToBeRun = (...args: any) => Promise<any>;
-export type RunWithSpinner = (run: ToBeRun, message: string) => Promise<any>;
 
 export interface ProjectMetrics {
   projectName: string;

@@ -4,6 +4,5 @@ export * from './makeAnalyzeRepos';
 export * from './makeBuildProjectMetrics';
 export * from './makeCheckConfiguration';
 export * from './makeCheckoutRepo';
-export * from './makeCloneRepos';
 export * from './makeRemoveTemporaryLocalRepo';
 export * from './types';

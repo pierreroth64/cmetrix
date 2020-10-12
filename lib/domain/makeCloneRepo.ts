@@ -1,33 +1,17 @@
-import {
-  Git,
-  FileOps,
-  Logger,
-  RunWithSpinner,
-  ClonedRepository,
-  Repository,
-} from './types';
+import { Git, FileOps, Logger, ClonedRepository, Repository } from './types';
 
 export interface CloneRepoCreation {
   logger: Logger;
   git: Git;
   fileOps: FileOps;
-  runWithSpinner?: RunWithSpinner;
 }
 
 export function makeCloneRepo(creation: CloneRepoCreation) {
-  const {
-    fileOps,
-    git,
-    logger,
-    runWithSpinner = async (x: any) => await x(),
-  } = creation;
+  const { fileOps, git, logger } = creation;
 
   return async (repository: Repository): Promise<ClonedRepository> => {
     try {
-      const result = await runWithSpinner(
-        async () => mayCloneRepo(repository),
-        `cloning repository ${repository.name}...`
-      );
+      const result = await mayCloneRepo(repository);
       logger.info(`cloned repository ${repository.name}`);
       return result;
     } catch (e) {
