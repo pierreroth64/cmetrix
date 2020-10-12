@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eove/cmetrix"
+    "url": "https://github.com/pierreroth64/cmetrix"
   },
   "dependencies": {
     "@arpinum/log": "5.3.1",

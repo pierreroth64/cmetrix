@@ -1,4 +1,4 @@
-# eove default ignore list
+# default ignore list
 __mocks__
 .*
 *.spec.js
