@@ -4,7 +4,7 @@
   "description": "CLI to build code metrics charts for your projects",
   "main": "build/main.js",
   "bin": {
-    "cmetrix": "build/main.js"
+    "cmetrix": "./bin/cmetrix.js"
   },
   "files": [
     "build"
@@ -37,6 +37,7 @@
     "commander": "6.1.0",
     "cross-spawn": "7.0.3",
     "glob": "7.1.6",
+    "import-local": "3.0.2",
     "lodash": "4.17.19",
     "mkdirp": "1.0.4",
     "mustache": "4.0.1",
