@@ -28,6 +28,43 @@ Then, just run `npx cmetrix charts -c <configuration-file>.json`
 
 (`npx cmetrix charts --help` for more options)
 
+### Configuration file
+
+A simple configuration file example is available in the `./examples` directory. You can add `languages` and `excludeDirs` to have a better repository analysis.
+
+```json5
+{
+  projects: [
+    {
+      name: 'project 1',
+      repositories: [
+        { name: 'lodash' },
+        { name: 'shelljs' },
+        { name: 'pelican' },
+      ],
+    },
+    {
+      name: 'project 2',
+      repositories: [{ name: 'lodash' }, { name: 'quart' }],
+    },
+  ],
+  repositories: [
+    {
+      name: 'lodash',
+      url: 'git@github.com:lodash/lodash.git',
+      excludeDirs: ['node_modules'], // <- you can exclude dirs from analysis
+    },
+    {
+      name: 'shelljs',
+      url: 'https://github.com/shelljs/shelljs.git',
+      languages: ['JavaScript', 'TypeScript'], // <- you can filter on languages
+    },
+    { name: 'quart', url: 'https://gitlab.com/pgjones/quart.git' },
+    { name: 'pelican', url: 'https://github.com/getpelican/pelican.git' },
+  ],
+}
+```
+
 ### Authentication
 
 You can pass authentication tokens to `cmetrix` when accessing private repositories through `https://` using the following environment variables: `CMETRIX_GITHUB_TOKEN`, `CMETRIX_GITLAB_TOKEN`, `CMETRIX_BITBUCKET_TOKEN`.

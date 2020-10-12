@@ -22,7 +22,7 @@ export function makeRemoveTemporaryLocalRepos(
           await Promise.all(repositories.map((r) => removeSingleRepo(r))),
         'removing temporary local repositories...'
       );
-      const removed = results.filter((x:boolean) => x).length;
+      const removed = results.filter((x: boolean) => x).length;
       logger.info(`removed ${removed} temporary local repositories`);
     } catch (e) {
       logger.error(
