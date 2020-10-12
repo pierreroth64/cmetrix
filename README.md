@@ -53,6 +53,7 @@ A simple JSON configuration file example is available in the `./examples` direct
       name: 'lodash',
       url: 'git@github.com:lodash/lodash.git',
       excludeDirs: ['node_modules'], // <- you can exclude dirs from analysis
+      tag: '3.10.1', // <- you can checkout a given tag
     },
     {
       name: 'shelljs',

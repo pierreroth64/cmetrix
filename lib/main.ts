@@ -45,6 +45,7 @@ program
     const {
       checkConfiguration,
       fileOps,
+      checkoutRepos,
       cloneRepos,
       removeTemporaryLocalRepos,
       collectProjectsMetrics,
@@ -56,6 +57,7 @@ program
         await fileOps.readJson(options.configurationFile)
       );
       cloned = await cloneRepos(conf.repositories);
+      await checkoutRepos(cloned);
       const projectsMetrics = await collectProjectsMetrics(
         conf.projects,
         cloned

@@ -1,14 +1,14 @@
-import { GitTool, Git } from './types';
+import { GitToolFactoryFunction, Git } from './types';
 
 export interface GitCreation {
-  git: GitTool;
+  createGitTool: GitToolFactoryFunction;
   githubToken?: string;
   gitlabToken?: string;
   bitbucketToken?: string;
 }
 
 export function createGit(creation: GitCreation): Git {
-  const { git, githubToken, gitlabToken, bitbucketToken } = creation;
+  const { createGitTool, githubToken, gitlabToken, bitbucketToken } = creation;
 
   return {
     clone,
@@ -16,11 +16,14 @@ export function createGit(creation: GitCreation): Git {
   };
 
   async function clone(url: string, destDir: string): Promise<void> {
-    await git.clone(encodeWithTokenMaybe(url), destDir);
+    await createGitTool().clone(encodeWithTokenMaybe(url), destDir);
   }
 
-  async function checkout(tag: string): Promise<void> {
-    await git.checkout(tag);
+  async function checkout(
+    tag: string,
+    workingDirectory: string
+  ): Promise<void> {
+    await createGitTool(workingDirectory).checkout(tag);
   }
 
   function encodeWithTokenMaybe(url: string): string {

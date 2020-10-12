@@ -5,6 +5,7 @@ import {
   makeCheckConfiguration,
   createGit,
   makeCollectProjectsMetrics,
+  makeCheckoutRepos,
   makeCloneRepos,
   makeRemoveTemporaryLocalRepos,
   makeGenerateOutput,
@@ -26,7 +27,7 @@ export function bootstrap(options: any): any {
     level: options.quiet ? LogLevel.off : options.logLevel,
   });
   const git = createGit({
-    git: simpleGit(),
+    createGitTool: (workDir?: string) => simpleGit(workDir),
     githubToken: process.env.CMETRIX_GITHUB_TOKEN,
     gitlabToken: process.env.CMETRIX_GITLAB_TOKEN,
     bitbucketToken: process.env.CMETRIX_BITBUCKET_TOKEN,
@@ -40,6 +41,7 @@ export function bootstrap(options: any): any {
     logger,
   });
   const cloneRepos = makeCloneRepos({ git, fileOps, logger, runWithSpinner });
+  const checkoutRepos = makeCheckoutRepos({ git, logger, runWithSpinner });
   const removeTemporaryLocalRepos = makeRemoveTemporaryLocalRepos({
     logger,
     fileOps,
@@ -63,6 +65,7 @@ export function bootstrap(options: any): any {
   return {
     runWithSpinner,
     fileOps,
+    checkoutRepos,
     cloneRepos,
     removeTemporaryLocalRepos,
     collectProjectsMetrics,

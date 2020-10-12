@@ -14,7 +14,11 @@
     }
   ],
   "repositories": [
-    { "name": "lodash", "url": "git@github.com:lodash/lodash.git" },
+    {
+      "name": "lodash",
+      "url": "git@github.com:lodash/lodash.git",
+      "tag": "3.10.1"
+    },
     { "name": "shelljs", "url": "https://github.com/shelljs/shelljs.git" },
     { "name": "quart", "url": "https://gitlab.com/pgjones/quart.git" },
     { "name": "pelican", "url": "https://github.com/getpelican/pelican.git" }

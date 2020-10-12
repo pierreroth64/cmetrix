@@ -1,6 +1,6 @@
 export interface Git {
   clone: (url: string, destDir: string) => Promise<void>;
-  checkout: (tag: string) => Promise<any>;
+  checkout: (tag: string, workingDirectory: string) => Promise<any>;
 }
 
 export interface Logger {
@@ -10,10 +10,7 @@ export interface Logger {
   error: (...args: any[]) => void;
 }
 
-export interface GitTool {
-  clone: (repoPath: string, localPath: string) => Promise<any>;
-  checkout: (tag: string) => Promise<any>;
-}
+export type GitToolFactoryFunction = (workingDirectory?: string) => any;
 
 export interface FileOps {
   createTemporaryDirectory: (prefix?: string) => Promise<string>;
@@ -56,6 +53,7 @@ export interface Repository {
   url: string;
   languages?: string[];
   excludeDirs?: string[];
+  tag?: string;
 }
 
 export type ClonedRepository = Repository & Cloned;

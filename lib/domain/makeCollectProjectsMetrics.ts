@@ -62,6 +62,7 @@ export function makeCollectProjectsMetrics(
         throw new Error(`cloned repository named '${repoName}' not found`);
       }
       const { languages, excludeDirs } = cloned;
+
       metrics.push({
         repoName,
         metrics: formatClocResult(
