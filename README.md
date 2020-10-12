@@ -23,14 +23,14 @@ Run `cmetrix` and you will get beautiful charts (thanks to [cloc](https://github
 
 ## Usage
 
-First, you have to describe your projects in a configuration file.
+First, you have to describe your projects in a JSON configuration file.
 Then, just run `npx cmetrix charts -c <configuration-file>.json`
 
 (`npx cmetrix charts --help` for more options)
 
 ### Configuration file
 
-A simple configuration file example is available in the `./examples` directory. You can add `languages` and `excludeDirs` to have a better repository analysis.
+A simple JSON configuration file example is available in the `./examples` directory. You can add `languages` and `excludeDirs` to have a better repository analysis.
 
 ```json5
 {
