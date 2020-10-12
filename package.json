@@ -7,7 +7,8 @@
     "cmetrix": "./bin/cmetrix.js"
   },
   "files": [
-    "build"
+    "build",
+    "bin"
   ],
   "scripts": {
     "tslint": "tslint --fix 'lib/**/*.ts'",
