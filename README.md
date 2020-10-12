@@ -19,16 +19,14 @@ Run `cmetrix` and you will get beautiful charts (thanks to [cloc](https://github
 
 - Install [NodeJS](https://nodejs.org/)
 - Install [cloc](https://github.com/AlDanial/cloc)
-- Then run `npm install cmetrix`
+- Then run `npx cmetrix --help`
 
 ## Usage
 
 First, you have to describe your projects in a configuration file.
-Then, just run `cmetrix charts -c <configuration-file>.json`
+Then, just run `npx cmetrix charts -c <configuration-file>.json`
 
-You can run the example: `npm run build && npm start -- charts -c examples/conf.json --open`
-
-(`cmetrix charts --help` for more options)
+(`npx cmetrix charts --help` for more options)
 
 ### Authentication
 
@@ -41,3 +39,5 @@ You can pass authentication tokens to `cmetrix` when accessing private repositor
   npm run build
   npm start -- charts --help
 ```
+
+Note: you can run the example: `npm run build && npm start -- charts -c examples/conf.json --open`
