@@ -25,7 +25,9 @@ export function makeGenerateHTMLOutput(creation: GenerateHTMLOutputCreation) {
     const destPath = path.join(outDir, 'index.html');
     logger.debug(`generating html projects metrics in ${destPath}...`);
 
-    const templateContent = templatePath ? await fileOps.readText(templatePath) : defaultTemplateContent;
+    const templateContent = templatePath
+      ? await fileOps.readText(templatePath)
+      : defaultTemplateContent;
     const output = await templateEngine.run(
       { projects: metrics, title },
       templateContent

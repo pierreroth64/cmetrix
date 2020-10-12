@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   target: 'node',
   node: {
-    __dirname: false
+    __dirname: false,
   },
   entry: './lib/main.ts',
   module: {
@@ -19,15 +19,15 @@ module.exports = {
           {
             loader: 'ts-loader',
             options: {
-              configFile: 'tsconfig.prod.json'
-            }
-          }
-        ]
-      }
+              configFile: 'tsconfig.prod.json',
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
     filename: 'main.js',

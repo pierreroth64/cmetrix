@@ -1,4 +1,6 @@
 import program from 'commander';
+import open from 'open';
+
 import { bootstrap } from './runtime';
 import { Level as LogLevel } from '@arpinum/log';
 import { ClonedRepository, OutputFormat } from './domain';
@@ -30,6 +32,7 @@ program
     '[OUT_DIR] where to generate artefacts',
     process.cwd()
   )
+  .option('--open', 'when set, open generated output file', false)
   .option(
     '-l, --log-level [LOG_LEVEL]',
     'LOG_LEVEL is the log level for console messages during execution',
@@ -58,6 +61,9 @@ program
       );
       const output = await generateOutput(projectsMetrics);
       console.log('generated:', output);
+      if (options.open) {
+        open(output);
+      }
     } catch (e) {
       error = e;
     } finally {
