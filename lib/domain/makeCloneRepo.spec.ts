@@ -18,16 +18,16 @@ describe('Clone repository', () => {
   it('when url is an existing local repo, should _not_ mark repository to be removed', async () => {
     fileOps.doesExist = jest.fn().mockResolvedValue(true);
 
-    const cloned = await cloneRepo([{ name: 'my-repo', url: 'my-repo-dir' }]);
+    const cloned = await cloneRepo({ name: 'my-repo', url: 'my-repo-dir' });
 
-    expect(cloned[0].toBeRemoved).toBeFalsy();
+    expect(cloned.toBeRemoved).toBeFalsy();
   });
 
   it('when url is not an existing local repo, should mark repository to be removed', async () => {
     fileOps.doesExist = jest.fn().mockResolvedValue(false);
 
-    const cloned = await cloneRepo([{ name: 'my-repo', url: 'my-repo-dir' }]);
+    const cloned = await cloneRepo({ name: 'my-repo', url: 'my-repo-dir' });
 
-    expect(cloned[0].toBeRemoved).toBeTruthy();
+    expect(cloned.toBeRemoved).toBeTruthy();
   });
 });
