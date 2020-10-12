@@ -31,7 +31,10 @@ Then, just run `npx cmetrix charts -c <configuration-file>.json`
 ### Authentication
 
 You can pass authentication tokens to `cmetrix` when accessing private repositories through `https://` using the following environment variables: `CMETRIX_GITHUB_TOKEN`, `CMETRIX_GITLAB_TOKEN`, `CMETRIX_BITBUCKET_TOKEN`.
+
 ⚠️ Do not fill your configuration file with tokens: `cmetrix` will do the job for you.
+
+Example if you have private repos in github and gitlab: `CMETRIX_GITHUB_TOKEN=aabbccddaabbccdd CMETRIX_GITLAB_TOKEN=1122334455 npx cmetrix charts -c <configuration-file>.json`
 
 ## Development
 
