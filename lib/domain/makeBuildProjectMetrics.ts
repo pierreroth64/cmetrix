@@ -35,10 +35,6 @@ export function makeBuildProjectMetrics(
     const metrics: any[] = [];
     for (const repo of repositories) {
       const { name: repoName } = repo;
-      logger.debug(
-        `finding metrics for repo with name: ${repoName} in:`,
-        reposMetrics
-      );
       const singleRepoMetrics = _.find(reposMetrics, { name: repoName });
       if (!singleRepoMetrics) {
         throw new Error(`metrics for repository named '${repoName}' not found`);

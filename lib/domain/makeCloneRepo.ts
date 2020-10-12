@@ -10,14 +10,14 @@ export function makeCloneRepo(creation: CloneRepoCreation) {
   const { fileOps, git, logger } = creation;
 
   return async (repository: Repository): Promise<ClonedRepository> => {
+    const { name } = repository;
     try {
+      logger.info(`cloning repository ${name}...`);
       const result = await mayCloneRepo(repository);
-      logger.info(`cloned repository ${repository.name}`);
+      logger.info(`cloned repository ${name}`);
       return result;
     } catch (e) {
-      logger.error(
-        `error when cloning repository ${repository.name}: ${e.message}`
-      );
+      logger.error(`error when cloning repository ${name}: ${e.message}`);
       throw e;
     }
   };

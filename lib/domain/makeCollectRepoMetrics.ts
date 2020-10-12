@@ -18,6 +18,7 @@ export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
   return async (repository: ClonedRepository): Promise<RepositoryMetrics> => {
     try {
       const { dir, languages, excludeDirs, name } = repository;
+      logger.info(`collecting repository metrics for ${name}...`);
       const metrics = formatClocResult(
         await runCloc(dir, { languages, excludeDirs })
       );

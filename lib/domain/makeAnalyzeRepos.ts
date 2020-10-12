@@ -43,6 +43,7 @@ export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
     onAnalyzed?: OnAnalyzedRepository
   ): Promise<RepositoryMetrics[]> => {
     try {
+      logger.info('analyzing repositories...');
       const repoMetrics = await Promise.all(
         repositories.map((r) =>
           compose([

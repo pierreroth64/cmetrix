@@ -22,8 +22,11 @@ export function makeRemoveTemporaryLocalRepo(
   };
 
   async function removeRepo(repo: ClonedRepository): Promise<ClonedRepository> {
-    if (repo.toBeRemoved) {
-      await fileOps.remove(repo.dir);
+    const { toBeRemoved, name, dir } = repo;
+    if (toBeRemoved) {
+      logger.info(`removing cloned repository ${name} (dir: ${dir})...`);
+      await fileOps.remove(dir);
+      logger.info(`removed cloned repository ${name}`);
     }
     return repo;
   }
