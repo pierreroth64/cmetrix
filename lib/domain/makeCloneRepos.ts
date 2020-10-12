@@ -11,11 +11,16 @@ export interface CloneRepoCreation {
   logger: Logger;
   git: Git;
   fileOps: FileOps;
-  runWithSpinner: RunWithSpinner;
+  runWithSpinner?: RunWithSpinner;
 }
 
 export function makeCloneRepos(creation: CloneRepoCreation) {
-  const { fileOps, git, logger, runWithSpinner } = creation;
+  const {
+    fileOps,
+    git,
+    logger,
+    runWithSpinner = async (x: any) => await x(),
+  } = creation;
 
   return async (repositories: Repository[]): Promise<ClonedRepository[]> => {
     try {

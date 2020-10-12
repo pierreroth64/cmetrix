@@ -1,3 +1,5 @@
+import { createGitMock } from '../tests';
+
 import { createGit } from './git';
 
 describe('Git', () => {
@@ -5,28 +7,7 @@ describe('Git', () => {
   let gitTool: any;
 
   beforeEach(() => {
-    gitTool = {
-      clone: jest.fn().mockResolvedValue(undefined),
-      checkout: jest.fn().mockResolvedValue(undefined),
-    };
-    git = createGit({
-      git: gitTool,
-      githubToken: 'githubToken123',
-      gitlabToken: 'gitlabToken456',
-      bitbucketToken: 'bitbucketToken679',
-    });
-    git = createGit({
-      git: gitTool,
-      githubToken: 'githubToken123',
-      gitlabToken: 'gitlabToken456',
-      bitbucketToken: 'bitbucketToken679',
-    });
-    git = createGit({
-      git: gitTool,
-      githubToken: 'githubToken123',
-      gitlabToken: 'gitlabToken456',
-      bitbucketToken: 'bitbucketToken679',
-    });
+    gitTool = createGitMock();
   });
 
   it('should encode github token', async () => {
