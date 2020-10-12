@@ -6,6 +6,12 @@
   "bin": {
     "cmetrix": "./bin/cmetrix.js"
   },
+  "keywords": [
+    "metrix",
+    "metrics",
+    "code",
+    "chart"
+  ],
   "files": [
     "build",
     "bin"
