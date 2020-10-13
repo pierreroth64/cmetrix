@@ -7,21 +7,14 @@ export interface CollectRepoMetricsCreation {
   shell: Shell;
 }
 
-interface ClocOptions {
-  languages?: string[];
-  excludeDirs?: string[];
-}
-
 export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
   const { shell, logger } = creation;
 
   return async (repository: ClonedRepository): Promise<RepositoryMetrics> => {
     try {
-      const { dir, languages, excludeDirs, name } = repository;
+      const { name } = repository;
       logger.info(`collecting repository metrics for ${name}...`);
-      const metrics = formatClocResult(
-        await runCloc(dir, { languages, excludeDirs })
-      );
+      const metrics = formatClocResult(await runCloc(repository));
       logger.info(`collected repository metrics for ${name}`);
       return {
         name,
@@ -34,8 +27,8 @@ export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
     }
   };
 
-  async function runCloc(dir: string, options?: ClocOptions): Promise<any> {
-    const { languages, excludeDirs } = _.defaults({}, options, {
+  async function runCloc(repository: ClonedRepository): Promise<any> {
+    const { languages, excludeDirs, dir, name } = _.defaults({}, repository, {
       languages: [],
       excludeDirs: [],
     });
@@ -50,7 +43,11 @@ export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
     }
     const args = ['.', '--json', ...extraArgs];
 
-    logger.debug(`\nrunning command in dir ${dir}: cloc ${args.join(' ')}`);
+    logger.debug(
+      `running command in dir ${dir} (cloned repo ${name}): cloc ${args.join(
+        ' '
+      )}`
+    );
     const { stdout: result } = await shell.run('cloc', args, {
       workingDirectory: dir,
     });
