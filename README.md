@@ -1,6 +1,6 @@
 # cmetrix
 
-[![Build Status](https://github.com/pierreroth64/cmetrix/workflows/CI/badge.svg)](https://github.com/pierreroth64/cmetrix/actions?query=workflow%3ACI)
+[![Build Status](https://github.com/pierreroth64/cmetrix/workflows/CI/badge.svg)](https://github.com/pierreroth64/cmetrix/actions?query=workflow%3ACI) [![npm version](https://badge.fury.io/js/cmetrix.svg)](https://badge.fury.io/js/cmetrix) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 _CLI to build code metrics charts for your projects_
 
