@@ -26,6 +26,7 @@ export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
       return {
         name,
         metrics,
+        repository,
       };
     } catch (e) {
       logger.error(`error when collecting projects metrics: ${e.message}`);

@@ -70,6 +70,7 @@ export interface ProjectMetrics {
 export interface RepositoryMetrics {
   name: string;
   metrics: any;
+  repository: ClonedRepository;
 }
 
 export enum OutputFormat {

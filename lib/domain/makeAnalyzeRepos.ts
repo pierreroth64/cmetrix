@@ -7,6 +7,7 @@ import {
   Repository,
   RepositoryMetrics,
   Shell,
+  ClonedRepository,
 } from './types';
 import { makeCloneRepo } from './makeCloneRepo';
 import { makeCheckoutRepo } from './makeCheckoutRepo';
@@ -46,23 +47,27 @@ export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
       logger.info('analyzing repositories...');
       const repoMetrics = await Promise.all(
         repositories.map((r) =>
-          compose([
-            cloneRepo,
-            checkoutRepo,
-            collectRepoMetrics,
-            removeTemporaryLocalRepo,
-          ])(r).then((metrics: RepositoryMetrics) => {
-            return onAnalyzed
-              ? onAnalyzed(metrics).then(() => metrics)
-              : metrics;
-          })
+          compose([cloneRepo, checkoutRepo, collectRepoMetrics])(r).then(
+            (metrics: RepositoryMetrics) => {
+              return onAnalyzed
+                ? onAnalyzed(metrics).then(() => metrics)
+                : metrics;
+            }
+          )
         )
       );
+      await removeTemporaryLocalRepos(repoMetrics.map((m) => m.repository));
       logger.info('analyzed repositories');
       return repoMetrics;
     } catch (e) {
       logger.error(`error when analyzing repositories: ${e.message}`);
       throw e;
+    }
+
+    async function removeTemporaryLocalRepos(localRepos: ClonedRepository[]) {
+      for (const repo of localRepos) {
+        await removeTemporaryLocalRepo(repo);
+      }
     }
   };
 }
