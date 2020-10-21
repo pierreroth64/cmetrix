@@ -15,6 +15,7 @@ import {
   createShell,
   createTemplateEngine,
   createProgress as rawCreateProgress,
+  makeGetCurrentDate,
 } from '../tools';
 
 export function bootstrap(options: any): any {
@@ -33,6 +34,7 @@ export function bootstrap(options: any): any {
   });
   const shell = createShell({ logger });
   const templateEngine = createTemplateEngine();
+  const getCurrentDate = makeGetCurrentDate({ logger });
 
   const checkConfiguration = makeCheckConfiguration({
     logger,
@@ -65,5 +67,6 @@ export function bootstrap(options: any): any {
     checkConfiguration,
     generateOutput,
     analyzeRepos,
+    getCurrentDate,
   };
 }

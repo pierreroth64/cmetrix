@@ -31,25 +31,33 @@
         font-weight: lighter;
         font-size: x-small;
       }
+      .footer-date {
+        font-size: x-small;
+      }
     </style>
   </head>
   <body>
-    <div class="header">
-      <span class="title">{{title}}</span>
-    </div>
-    <div class="projects">
-      {{#projects}}
-      <div class="project">
-        <div class="project-header">
-          <span class="project-name">{{ projectName }}</span>
-          <span class="project-metrics-summary">[lines: {{ metrics.cumulated.code }}, files:  {{ metrics.cumulated.nFiles }}]</span>
-        </div>
-        <div class="project-chart">
-          <div id="chart-{{ projectId }}"></div>
-        </div>
+    <div class="root">
+      <div class="header">
+        <span class="title">{{title}}</span>
       </div>
-      {{/projects}}
-    <div>
+      <div class="projects">
+        {{#projects}}
+        <div class="project">
+          <div class="project-header">
+            <span class="project-name">{{ projectName }}</span>
+            <span class="project-metrics-summary">[lines: {{ metrics.cumulated.code }}, files:  {{ metrics.cumulated.nFiles }}]</span>
+          </div>
+          <div class="project-chart">
+            <div id="chart-{{ projectId }}"></div>
+          </div>
+        </div>
+        {{/projects}}
+      <div>
+      <div class="footer">
+        <span class="footer-date">{{ extras.date }}</span>
+      </div>
+    </div>
   </body>
   <script>
     {{#projects}}

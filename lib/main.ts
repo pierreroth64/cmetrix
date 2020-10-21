@@ -47,6 +47,7 @@ program
       buildProjectMetrics,
       generateOutput,
       createProgress,
+      getCurrentDate,
     } = bootstrap(options);
 
     try {
@@ -68,7 +69,9 @@ program
         buildProjectMetrics(p, repoMetrics)
       );
 
-      const output = await generateOutput(projectsMetrics);
+      const output = await generateOutput(projectsMetrics, {
+        date: getCurrentDate(),
+      });
       console.log('generated:', output);
 
       if (options.open) {

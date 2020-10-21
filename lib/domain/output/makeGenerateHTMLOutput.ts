@@ -20,7 +20,8 @@ export function makeGenerateHTMLOutput(creation: GenerateHTMLOutputCreation) {
   } = creation;
 
   return async function generateHTMLOutput(
-    metrics: ProjectMetrics[]
+    metrics: ProjectMetrics[],
+    extras?: any
   ): Promise<any> {
     const destPath = path.join(outDir, 'index.html');
     logger.debug(`generating html projects metrics in ${destPath}...`);
@@ -29,7 +30,7 @@ export function makeGenerateHTMLOutput(creation: GenerateHTMLOutputCreation) {
       ? await fileOps.readText(templatePath)
       : defaultTemplateContent;
     const output = await templateEngine.run(
-      { projects: metrics, title },
+      { projects: metrics, title, extras: extras || {} },
       templateContent
     );
     await fileOps.writeText(destPath, output);

@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import path from 'path';
 
 import { ProjectMetrics } from '../types';
@@ -7,7 +8,8 @@ export function makeGenerateJSONOutput(creation: GenerateOutputCreation) {
   const { logger, outDir = process.cwd(), fileOps } = creation;
 
   return async function generateJSONOutput(
-    metrics: ProjectMetrics[]
+    metrics: ProjectMetrics[],
+    extras?: any
   ): Promise<any> {
     logger.debug('generating json projects metrics...');
 
@@ -15,7 +17,7 @@ export function makeGenerateJSONOutput(creation: GenerateOutputCreation) {
 
     await fileOps.writeText(
       destPath,
-      JSON.stringify({ projects: metrics }, null, 4)
+      JSON.stringify({ projects: metrics, extras: extras || {} }, null, 4)
     );
 
     return destPath;

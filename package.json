@@ -47,6 +47,7 @@
     "import-local": "3.0.2",
     "lodash": "4.17.20",
     "mkdirp": "1.0.4",
+    "moment": "2.29.1",
     "mustache": "4.0.1",
     "open": "7.3.0",
     "ora": "5.1.0",
