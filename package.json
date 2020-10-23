@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@arpinum/log": "5.3.1",
-    "@arpinum/promising": "3.1.1",
+    "@arpinum/promising": "4.0.0",
     "chalk": "4.1.0",
     "commander": "6.1.0",
     "cross-spawn": "7.0.3",

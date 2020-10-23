@@ -1,4 +1,4 @@
-import { compose } from '@arpinum/promising';
+import { pipe } from '@arpinum/promising';
 
 import {
   Git,
@@ -47,7 +47,7 @@ export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
       logger.info('analyzing repositories...');
       const repoMetrics = await Promise.all(
         repositories.map((r) =>
-          compose([cloneRepo, checkoutRepo, collectRepoMetrics])(r).then(
+          pipe([cloneRepo, checkoutRepo, collectRepoMetrics])(r).then(
             (metrics: RepositoryMetrics) => {
               return onAnalyzed
                 ? onAnalyzed(metrics).then(() => metrics)
