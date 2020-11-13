@@ -31,7 +31,7 @@
     "preversion": "run-s check test build",
     "postversion": "git push && git push --tags && npm publish --access=public"
   },
-  "author": "EOVE",
+  "author": "Peio",
   "license": "MIT",
   "repository": {
     "type": "git",
