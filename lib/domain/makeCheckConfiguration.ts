@@ -18,7 +18,7 @@ export function makeCheckConfiguration(creation: CheckConfigurationCreation) {
       logger.info(`configuration checked`);
       return content;
     } catch (e) {
-      logger.warn(`configuration error: ${e.message}`);
+      logger.warn(`configuration error: ${(e as Error).message}`);
       throw e;
     }
   };

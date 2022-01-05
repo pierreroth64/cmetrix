@@ -15,7 +15,9 @@ export function makeRemoveTemporaryLocalRepo(
       return await removeRepo(repository);
     } catch (e) {
       logger.error(
-        `error when removing temporary local repository ${repository.name}: ${e.message}`
+        `error when removing temporary local repository ${repository.name}: ${
+          (e as Error).message
+        }`
       );
       throw e;
     }
