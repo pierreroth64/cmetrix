@@ -39,7 +39,11 @@ export function makeCollectRepoMetrics(creation: CollectRepoMetricsCreation) {
       extraArgs.push(`--include-lang=${languages.join(',')}`);
     }
     if (excludeDirs && excludeDirs.length) {
-      extraArgs.push(`--exclude-dir=${excludeDirs.join(',')}`);
+      extraArgs.push(
+        `--not-match-d="${(excludeDirs as string[])
+          .map((d) => d.replace('/', '\\/'))
+          .join('|')}"`
+      );
     }
     const args = ['.', '--json', ...extraArgs];
 

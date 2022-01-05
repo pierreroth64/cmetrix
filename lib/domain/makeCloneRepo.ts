@@ -9,7 +9,9 @@ export interface CloneRepoCreation {
 export function makeCloneRepo(creation: CloneRepoCreation) {
   const { fileOps, git, logger } = creation;
 
-  return async (repository: Repository): Promise<ClonedRepository> => {
+  return async function cloneRepo(
+    repository: Repository
+  ): Promise<ClonedRepository> {
     const { name } = repository;
     try {
       logger.info(`cloning repository ${name}...`);
@@ -17,7 +19,9 @@ export function makeCloneRepo(creation: CloneRepoCreation) {
       logger.info(`cloned repository ${name}`);
       return result;
     } catch (e) {
-      logger.error(`error when cloning repository ${name}: ${e.message}`);
+      logger.error(
+        `error when cloning repository ${name}: ${(e as Error).message}`
+      );
       throw e;
     }
   };

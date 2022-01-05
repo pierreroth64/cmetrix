@@ -27,9 +27,8 @@ export function createProgress(creation: TerminalProgressCreation): any {
 
   function createSilentProgress(): any {
     return {
-      update,
+      // tslint:disable-next-line:no-empty
+      update: async () => {},
     };
-
-    async function update() {}
   }
 }
