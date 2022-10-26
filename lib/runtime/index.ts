@@ -34,7 +34,7 @@ export function bootstrap(options: any): any {
   });
   const shell = createShell({ logger });
   const templateEngine = createTemplateEngine();
-  const getCurrentDate = makeGetCurrentDate({ logger });
+  const getCurrentDate = makeGetCurrentDate();
 
   const checkConfiguration = makeCheckConfiguration({
     logger,
