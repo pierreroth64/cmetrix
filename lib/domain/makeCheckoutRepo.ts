@@ -29,6 +29,8 @@ export function makeCheckoutRepo(creation: CheckoutRepoCreation) {
       await git.checkout(tag, dir);
       logger.info(`checked out repository ${repo.name}`);
       return Object.assign({}, repo, { tag });
+    } else {
+      logger.debug(`no checkout for ${repo.name} as tag is not defined`);
     }
     return repo;
   }
