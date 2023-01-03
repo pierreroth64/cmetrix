@@ -28,6 +28,10 @@ Then, just run `npx cmetrix charts -c <configuration-file>.json`
 
 (`npx cmetrix charts --help` for more options)
 
+### Example
+
+Just run: `npm run example`
+
 ### Configuration file
 
 A simple JSON configuration file example is available in the `./examples` directory. You can add `languages` and `excludeDirs` to have a better repository analysis.

@@ -10,22 +10,25 @@ export function makeCheckoutRepo(creation: CheckoutRepoCreation) {
 
   return async (repository: ClonedRepository): Promise<ClonedRepository> => {
     try {
-      const checkedOut = await checkoutSingleRepo(repository);
+      const checkedOut = await mayCheckoutSingleRepo(repository);
       logger.info(
         `checked out repository ${checkedOut.name} (${checkedOut.tag})`
       );
       return checkedOut;
     } catch (e) {
-      logger.error(`error when checking out repositories: ${e.message}`);
+      logger.error(`error when checking out repositories: ${(e as Error).message}`);
       throw e;
     }
   };
 
-  async function checkoutSingleRepo(
+  async function mayCheckoutSingleRepo(
     repo: ClonedRepository
   ): Promise<ClonedRepository> {
-    const { tag = 'master', dir } = repo;
-    await git.checkout(tag, dir);
-    return Object.assign({}, repo, { tag });
+    const { tag, dir } = repo;
+    if (tag) {
+      await git.checkout(tag, dir);
+      return Object.assign({}, repo, { tag });
+    }
+    return repo;
   }
 }
