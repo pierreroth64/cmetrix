@@ -27,8 +27,17 @@ export type OnAnalyzedRepository = (
 
 export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
   const { fileOps, git, logger, shell } = creation;
-
-  const cloneRepo = makeCloneRepo({ git, logger, fileOps });
+  const clonedRepositories: ClonedRepository[] = [];
+  const cloneRepo = makeCloneRepo({
+    git,
+    logger,
+    fileOps,
+    hooks: {
+      onCloned: async (r: ClonedRepository) => {
+        clonedRepositories.push(r);
+      },
+    },
+  });
   const checkoutRepo = makeCheckoutRepo({ git, logger });
   const collectRepoMetrics = makeCollectRepoMetrics({
     logger,
@@ -56,12 +65,16 @@ export function makeAnalyzeRepos(creation: AnalyzeReposCreation) {
           )
         )
       );
-      await removeTemporaryLocalRepos(repoMetrics.map((m) => m.repository));
       logger.info('analyzed repositories');
       return repoMetrics;
     } catch (e) {
-      logger.error(`error when analyzing repositories: ${e.message}`);
+      logger.error(
+        `error when analyzing repositories: ${(e as Error).message}`
+      );
       throw e;
+    } finally {
+      logger.debug('repositories cleanup');
+      await removeTemporaryLocalRepos(clonedRepositories);
     }
 
     async function removeTemporaryLocalRepos(localRepos: ClonedRepository[]) {

@@ -1,13 +1,22 @@
+import _ from 'lodash';
 import { Git, FileOps, Logger, ClonedRepository, Repository } from './types';
 
 export interface CloneRepoCreation {
   logger: Logger;
   git: Git;
   fileOps: FileOps;
+  hooks?: {
+    onCloned: OnClonedHook;
+  };
 }
 
+export type OnClonedHook = (r: ClonedRepository) => Promise<void>;
+
 export function makeCloneRepo(creation: CloneRepoCreation) {
-  const { fileOps, git, logger } = creation;
+  const { fileOps, git, logger, hooks } = creation;
+  const { onCloned } = _.defaults(hooks, {
+    onCloned: async (_: ClonedRepository) => {},
+  });
 
   return async function cloneRepo(
     repository: Repository
@@ -34,10 +43,12 @@ export function makeCloneRepo(creation: CloneRepoCreation) {
     if (!(await fileOps.doesExist(url))) {
       const tempDir = await fileOps.createTemporaryDirectory();
       await git.clone(url, tempDir);
-      return Object.assign({}, repository, {
+      const cloned = Object.assign({}, repository, {
         dir: tempDir,
         toBeRemoved: true,
       });
+      onCloned(cloned);
+      return cloned;
     }
     logger.debug(`no need to clone existing repository: ${url}`);
     return Object.assign({}, repository, {
