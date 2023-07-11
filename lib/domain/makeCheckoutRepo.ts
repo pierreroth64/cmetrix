@@ -10,7 +10,7 @@ export function makeCheckoutRepo(creation: CheckoutRepoCreation) {
 
   return async (repository: ClonedRepository): Promise<ClonedRepository> => {
     try {
-      return await mayCheckoutSingleRepo(repository);
+      return mayCheckoutSingleRepo(repository);
     } catch (e) {
       logger.error(
         `error when checking out repository ${repository.name}: ${

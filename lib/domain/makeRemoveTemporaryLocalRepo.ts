@@ -12,7 +12,7 @@ export function makeRemoveTemporaryLocalRepo(
 
   return async (repository: ClonedRepository): Promise<ClonedRepository> => {
     try {
-      return await removeRepo(repository);
+      return removeRepo(repository);
     } catch (e) {
       logger.error(
         `error when removing temporary local repository ${repository.name}: ${
