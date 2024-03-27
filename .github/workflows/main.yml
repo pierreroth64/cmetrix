@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.22]
+        node-version: [lts/gallium]
 
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
           persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -25,7 +25,9 @@ jobs:
         run: |
           npm install
 
-      - name: test
+      - name: build
         run: |
           npm run build
-          npm test
+      - name: test
+        run: |
+          npm run test
